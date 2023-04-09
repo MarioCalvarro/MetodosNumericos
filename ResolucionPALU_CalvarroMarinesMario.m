@@ -6,25 +6,26 @@
 %   3) b: Vector con n componentes del término independiente
 % Salida:
 %   1) x: Vector n solución de P^-1 L U x = b
-function [x] = ResolucionPALU_CalvarroMarinesMario(P, LU, b)
-    [n, ~] = size(A);
+function [x] = ResolucionPALU_CalvarroMarinesMario(p, LU, b)
+    [n, ~] = size(LU);
     y = zeros(1, n);
-    y(1) = b(P(1));
+
+    y(1) = b(p(1));
     for i = 2:n
         aux = 0;
         for j = 1:(i-1) 
-            aux = aux + LU(P(i), j) * y(j);
+            aux = aux + LU(p(i), j) * y(j);
         end
-        y(i) = b(P(i)) - aux;
+        y(i) = b(p(i)) - aux;
     end
 
     x = zeros(1, n);
-    x(n) = y(n) / a(P(n), n);
-    for i = (n-1):1
+    x(n) = y(n) / LU(p(n), n);
+    for i = n-1:1
         aux = 0;
-        for j = (i+1):n)
-            aux = aux + A(P(i), j) * x(j);
+        for j = i+1:n
+            aux = aux + LU(p(i), j) * x(j);
         end
-        x(i) = (y(i) - aux) / A(P(i),i);
+        x(i) = (y(i) - aux) / LU(p(i),i);
     end
 end

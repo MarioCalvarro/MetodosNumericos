@@ -9,13 +9,13 @@ function [B] = Cholesky_CalvarroMarinesMario(A)
         for j = 1:i
             aux = 0;
             if i == j
-                for k = 1:(i-1)
+                for k = 1:i-1
                     aux = aux + abs(B(i,k))^2; 
                 end
                 B(i,i) = sqrt(A(i,i) - aux);
             else 
-                for k = 1:(j-1)
-                    aux = aux + B(i,k) + conj(B(j,k));
+                for k = 1:j-1
+                    aux = aux + B(i,k) * conj(B(j,k));
                 end
                 B(i,j) = (A(i,j) - aux) / B(j,j);
             end

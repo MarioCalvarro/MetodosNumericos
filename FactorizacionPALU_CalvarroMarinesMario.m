@@ -5,19 +5,23 @@
 %   2) LU: Matriz cuadrada n,
 %      la parte triangular inferior será L (sin diagonal al saber que es 1
 %      la parte triangular superior será U
-function [P, LU] = FactorizacionPALU_CalvarroMarinesMario(A)
+function [p, LU] = FactorizacionPALU_CalvarroMarinesMario(A)
     [n, ~] = size(A);
     p = 1:n;
     for k = 1:n
         l = 0;
+        aux = 0;
         for i = k:n
-            if (abs(A(p(i), k)) > l)
-                l = abs(A(p(i), k));
+            if (abs(A(p(i), k)) > aux)
+                l = i;
+                aux = abs(A(p(i), k));
             end
         end
 
         if (A(p(l),k) ~= 0)
-            t = p(l); p(l) = p(k); p(k) = t; 
+            t = p(l); 
+            p(l) = p(k); 
+            p(k) = t; 
             for i = k+1:n
                 A(p(i),k) = A(p(i),k) ./ A(p(k),k);
                 for j = k+1:n
