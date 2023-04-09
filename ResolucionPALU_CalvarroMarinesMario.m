@@ -8,20 +8,20 @@
 %   1) x: Vector n solución de P^-1 L U x = b
 function [x] = ResolucionPALU_CalvarroMarinesMario(p, LU, b)
     [n, ~] = size(LU);
-    y = zeros(1, n);
+    y = zeros(n, 1);
 
     y(1) = b(p(1));
     for i = 2:n
         aux = 0;
-        for j = 1:(i-1) 
+        for j = 1:i-1
             aux = aux + LU(p(i), j) * y(j);
         end
         y(i) = b(p(i)) - aux;
     end
 
-    x = zeros(1, n);
+    x = zeros(n, 1);
     x(n) = y(n) / LU(p(n), n);
-    for i = n-1:1
+    for i = n-1:-1:1
         aux = 0;
         for j = i+1:n
             aux = aux + LU(p(i), j) * x(j);
