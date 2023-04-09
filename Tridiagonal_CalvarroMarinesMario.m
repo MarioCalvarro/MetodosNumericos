@@ -6,14 +6,12 @@
 % Salida:
 %   1) x: vector solución. n componentes.
 function [x] = Tridiagonal_CalvarroMarinesMario(d, a, c, b)
-    n = size(d);
-    if (size(a) ~= (n - 1) || size(c) ~= (n-1) || size(b) ~= n) 
-        ME = MException('myComponent:inputError', 'Input does not have the expected format.');
-        throw(ME);
-    end
+    [n, ~] = size(d);
 
-    m = zeros([n, 1]); g = zeros([n, 1]);
-    m(1) = d(1); g(1) = b(1)/m(1);
+    m = zeros([n, 1]);
+    g = zeros([n, 1]);
+    m(1) = d(1);
+    g(1) = b(1)/m(1);
     for i = 2:n
         % Restamos 1 a "a" porque en la fórmulas dadas empieza en 2.
         m(i) = d(i) - c(i - 1) / m(i - 1) * a(i - 1);
