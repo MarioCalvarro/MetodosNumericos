@@ -6,13 +6,13 @@
 %   1) Y: Imágenes del vector X por la interpolación
 function [Y] = SplineCubicoTipoI_CalvarroMarinesMario(x, y, X)
     [~, n] = size(x); n = n - 1;
-    d = ones([n+1, 1]);
+    d = 2 * ones([n+1, 1]);
     lambda = zeros(n, 1); lambda(1) = 0;
     mu = zeros(n, 1); mu(n) = 0;
     b = zeros(n + 1, 1); b(1) = 0; b(n+1) = 0;, 
 
     for j = 1:n-1
-        %Sumanmos 1 a todos menos mu, porque empiezan en 0
+        %Sumamos 1 a todos menos mu, porque empiezan en 0
         mu(j) = (x(j+1) - x(j)) / (x(j+2) - x(j));
 
         lambda(j+1) = (x(j+2) - x(j + 1)) / (x(j+2) - x(j));
