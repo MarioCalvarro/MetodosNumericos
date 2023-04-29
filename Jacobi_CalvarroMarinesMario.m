@@ -15,11 +15,11 @@
 %   2) b: Vector de n términos independientes (vertical)
 % Salida:
 %   1) x: Solución aproximada del sistema. Vector n
-%   2) E: Escalar con la precisión del problema
+%   2) E: Escalar con la precisión de la resolución
 %   3) conv: Booleano que indica si el método converge
 function [x, E, conv] = Jacobi_CalvarroMarinesMario(A, b)
     [n, ~] = size(A);
-    iteraciones = n^2; %Máximo nº de iteraciones 
+    iteraciones = n; %Máximo nº de iteraciones 
     E = 0.001; %Precisión del resultado
     conv = 0;
 
@@ -35,5 +35,9 @@ function [x, E, conv] = Jacobi_CalvarroMarinesMario(A, b)
         end
         d = r ./ diag(A);
         x = x + d;
+    end
+
+    if conv == 0
+        disp("No converge")
     end
 end 
