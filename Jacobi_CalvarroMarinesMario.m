@@ -12,8 +12,8 @@
 
 % Entrada:
 %   1) A: Matriz nxn invertible con diagonal no nula
-%   2) b: Vector de n términos independientes 
-% Salida PA = LU:
+%   2) b: Vector de n términos independientes (vertical)
+% Salida:
 %   1) x: Solución aproximada del sistema. Vector n
 %   2) E: Escalar con la precisión del problema
 %   3) conv: Booleano que indica si el método converge

@@ -6,14 +6,29 @@
 
 % Entrada:
 %   1) A: Matriz nxn invertible con diagonal no nula
-%   2) b: Vector de n términos independientes 
+%   2) b: Vector de n términos independientes (vertical)
 %   3) w: Parámetro de relajación entre 0 y 2 sin incluirlos
-% Salida PA = LU:
+% Salida:
 %   1) x: Solución aproximada del sistema. Vector n
 %   2) E: Escalar con la precisión del problema
-function [x, E] = Relajacion_CalvarroMarinesMario(A, b, w)
-    k = 100000; %Máximo nº de iteraciones TODO: Cambiar dependiente al tamaño de la matriz
-    E = 0.001; %Precisión del resultado
+%   3) conv: Booleano que indica si el método converge
+function [x, E, conv] = Relajacion_CalvarroMarinesMario(A, b, w)
     [n, ~] = size(A);
-    
+    iteraciones = n^2; %Máximo nº de iteraciones 
+    E = 0.001; %Precisión del resultado
+    conv = 0;
+
+    norma_b = norm(b);
+    r = zeros(n, 1);
+    d = zeros(n, 1);
+    x = zeros(n, 1);
+    for k = 1:iteraciones
+        r = b - A*x;
+        if norma_b * E > norm(r)
+            conv = 1;
+            break;
+        end
+        d = w * (r ./ diag(A));
+        x = x + d;
+    end
 end 
